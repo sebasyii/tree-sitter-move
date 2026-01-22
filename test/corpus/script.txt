@@ -1,0 +1,61 @@
+==================
+Script and Address Blocks
+==================
+script {
+    use 0x1::Vector;
+    const MAX: u64 = 100;
+
+    fun main(a: u64) {
+    }
+}
+
+address 0x2 {
+    module M {
+        const ERR: u64 = 1;
+        friend 0x2::Other;
+    }
+}
+
+module Std::Named { }
+
+---
+
+(source_file
+  (script_block
+    (use_declaration
+      (module_access
+        (address_literal)
+        (identifier)))
+    (constant_definition
+      (identifier)
+      (type
+        (primitive_type))
+      (expression
+        (num_literal)))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type))))
+      (block)))
+  (address_block
+    (address_literal)
+    (module_definition
+      (module_identity
+        (identifier))
+      (constant_definition
+        (identifier)
+        (type
+          (primitive_type))
+        (expression
+          (num_literal)))
+      (friend_declaration
+        (module_access
+          (address_literal)
+          (identifier)))))
+  (module_definition
+    (module_identity
+      (identifier)
+      (identifier))))

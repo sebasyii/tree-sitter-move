@@ -1,0 +1,184 @@
+==================
+Spec Conditions with Iff
+==================
+module 0x1::IffTest {
+    fun test(x: u64): u64 { x }
+
+    spec test {
+        ensures result == x <==> x > 0;
+        aborts_if x == 0;
+        succeeds_if x > 0;
+        decreases x;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (module_access_expr
+            (module_access
+              (identifier))))))
+    (spec_block
+      (spec_target
+        (identifier))
+      (spec_member
+        (expression
+          (binary_expression
+            (expression
+              (binary_expression
+                (expression
+                  (module_access_expr
+                    (module_access
+                      (identifier))))
+                (expression
+                  (module_access_expr
+                    (module_access
+                      (identifier))))))
+            (expression
+              (binary_expression
+                (expression
+                  (module_access_expr
+                    (module_access
+                      (identifier))))
+                (expression
+                  (num_literal)))))))
+      (spec_member
+        (expression
+          (binary_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal)))))
+      (spec_member
+        (expression
+          (binary_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal)))))
+      (spec_member
+        (expression
+          (module_access_expr
+            (module_access
+              (identifier))))))))
+
+==================
+Spec Apply Pattern with Wildcard
+==================
+module 0x1::SpecApply {
+    spec module {
+        apply Ensures to *;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (spec_block
+      (spec_target)
+      (spec_member
+        (expression
+          (module_access_expr
+            (module_access
+              (identifier))))))))
+
+==================
+Spec Schema Definition
+==================
+module 0x1::Schema {
+    spec schema MySchema<T> {
+        requires x > 0;
+        ensures result > 0;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (spec_block
+      (spec_target
+        (identifier)
+        (type_parameters
+          (type_parameter
+            (identifier))))
+      (spec_member
+        (expression
+          (binary_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal)))))
+      (spec_member
+        (expression
+          (binary_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))))))
+
+==================
+Spec with Pragma and Let
+==================
+module 0x1::SpecLet {
+    spec module {
+        pragma verify = true;
+        let post value = result + 1;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (spec_block
+      (spec_target)
+      (spec_member
+        (spec_property
+          (identifier)
+          (expression
+            (bool_literal))))
+      (spec_member
+        (identifier)
+        (expression
+          (binary_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))))))

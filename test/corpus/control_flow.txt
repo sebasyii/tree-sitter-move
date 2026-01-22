@@ -1,0 +1,77 @@
+==================
+Control Flow
+==================
+module 0x1::ControlFlow {
+    fun t() {
+        if (true) { 1 } else { 0 };
+        if (cond) 1;
+        while (cond) { };
+        loop { break; };
+        loop { continue; };
+        return;
+        return 1;
+        abort 0;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (expression
+          (if_expression
+            (expression
+              (bool_literal))
+            (expression
+              (block
+                (expression
+                  (num_literal))))
+            (expression
+              (block
+                (expression
+                  (num_literal))))))
+        (expression
+          (if_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (while_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (block))))
+        (expression
+          (loop_expression
+            (expression
+              (block
+                (expression
+                  (break_expression))))))
+        (expression
+          (loop_expression
+            (expression
+              (block
+                (expression
+                  (continue_expression))))))
+        (expression
+          (return_expression))
+        (expression
+          (return_expression
+            (expression
+              (num_literal))))
+        (expression
+          (abort_expression
+            (expression
+              (num_literal))))))))

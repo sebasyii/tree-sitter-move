@@ -1,0 +1,264 @@
+==================
+Compound Assignment Operators
+==================
+module 0x1::CompoundAssign {
+    fun test() {
+        let x = 10;
+        x += 5;
+        x -= 3;
+        x *= 2;
+        x /= 4;
+        x %= 3;
+        x &= 0xFF;
+        x |= 0x0F;
+        x ^= 0xF0;
+        x <<= 2;
+        x >>= 1;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (num_literal)))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))
+        (expression
+          (compound_assignment_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (num_literal))))))))
+
+==================
+Lambda with Guards in Match
+==================
+module 0x1::MatchGuard {
+    fun filter(x: u64): bool {
+        match (x) {
+            val if val > 10 => true,
+            val if val < 5 => false,
+            _ => true
+        }
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (match_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (match_arm
+              (bind_list
+                (bind_var
+                  (identifier)))
+              (expression
+                (binary_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (num_literal))))
+              (expression
+                (bool_literal)))
+            (match_arm
+              (bind_list
+                (bind_var
+                  (identifier)))
+              (expression
+                (binary_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (num_literal))))
+              (expression
+                (bool_literal)))
+            (match_arm
+              (bind_list
+                (bind_var
+                  (identifier)))
+              (expression
+                (bool_literal)))))))))
+
+==================
+Vector Indexing and Range
+==================
+module 0x1::VectorOps {
+    fun test() {
+        let v = vector[1, 2, 3];
+        let x = v[0];
+        let y = &v[1];
+        let z = &mut v[2];
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (vector_literal
+              (expression
+                (num_literal))
+              (expression
+                (num_literal))
+              (expression
+                (num_literal)))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (vector_access_expression
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier))))
+              (expression
+                (num_literal)))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (borrow_expression
+              (expression
+                (vector_access_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (num_literal)))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (borrow_expression
+              (expression
+                (vector_access_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (num_literal)))))))))))

@@ -1,0 +1,277 @@
+==================
+Struct Definitions
+==================
+module 0x1::Structs {
+    struct Empty;
+
+    struct Native;
+
+    native struct NativeStruct;
+
+    struct WithAbilities has copy, drop;
+
+    struct WithFields has key {
+        f: u64,
+        g: bool
+    }
+
+    struct Positional(u64, bool) has copy;
+
+    struct Generic<T: drop> has store {
+        x: T
+    }
+
+    struct MultiAbility<T: copy + drop + store> has key, store {
+        a: T
+    }
+
+    struct Phantom<phantom T> {
+        a: u64
+    }
+
+    struct MultiGeneric<T, U> {
+        x: T,
+        y: U
+    }
+
+    struct MultiGenericConstraints<T: copy + drop, U: key> {
+        x: T,
+        y: U
+    }
+
+    enum Color {
+        Red,
+        Green,
+        Blue
+    }
+
+    enum Shape {
+        Circle(u64),
+        Rectangle { width: u64, height: u64 }
+    }
+
+    enum GenericEnum<T> has drop {
+        None,
+        Some(T)
+    }
+
+    enum MultiGenericEnum<T, U> {
+        One(T),
+        Two(U)
+    }
+
+    enum MultiGenericEnumConstraints<T: copy + drop, U: key> {
+        One(T),
+        Two(U)
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier))
+    (struct_definition
+      (identifier))
+    (struct_definition
+      (native_modifier)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability)
+        (ability)))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (primitive_type)))
+        (struct_field
+          (identifier)
+          (type
+            (primitive_type)))))
+    (struct_definition
+      (identifier)
+      (positional_fields
+        (type
+          (primitive_type))
+        (type
+          (primitive_type)))
+      (abilities
+        (ability)))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability))))
+      (abilities
+        (ability))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)
+            (ability))))
+      (abilities
+        (ability)
+        (ability))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (primitive_type)))))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier))
+        (type_parameter
+          (identifier)))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)))
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability))))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (enum_definition
+      (identifier)
+      (enum_variant
+        (identifier))
+      (enum_variant
+        (identifier))
+      (enum_variant
+        (identifier)))
+    (enum_definition
+      (identifier)
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (primitive_type))))
+      (enum_variant
+        (identifier)
+        (struct_fields
+          (struct_field
+            (identifier)
+            (type
+              (primitive_type)))
+          (struct_field
+            (identifier)
+            (type
+              (primitive_type))))))
+    (enum_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (abilities
+        (ability))
+      (enum_variant
+        (identifier))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier))))))
+    (enum_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier))
+        (type_parameter
+          (identifier)))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier)))))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier))))))
+    (enum_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)))
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability))))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier)))))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier))))))))

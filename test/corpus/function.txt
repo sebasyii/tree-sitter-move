@@ -1,0 +1,233 @@
+==================
+Function Definitions
+==================
+module 0x1::Functions {
+    fun private_fun() { }
+
+    public fun public_fun() { }
+
+    public(friend) fun friend_fun() { }
+
+    public(package) fun package_fun() { }
+
+    native fun native_fun();
+
+    public entry fun entry_fun() { }
+
+    inline fun inline_fun() { }
+
+    fun params(a: u64, b: bool) { }
+
+    fun returns(): u64 { 0 }
+
+    fun generic<T>(x: T): T { x }
+
+    fun acquires() acquires T { }
+
+    fun pure_fun() pure { }
+
+    fun reads_writes() reads T writes S { }
+
+    fun multiple_generics<T, U>(x: T, y: U): (T, U) { (x, y) }
+
+    fun generic_with_constraints<T: copy + drop>(x: T) { }
+
+    fun multiple_generics_constraints<T: copy + drop, U: key + store>(x: T, y: U) { }
+
+    fun complex_constraints<T: copy + drop + store + key>() { }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (native_modifier)
+      (identifier)
+      (function_parameters))
+    (function_definition
+      (visibility_modifier)
+      (entry_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (inline_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type)))
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type))))
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (num_literal))))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)))))
+      (ret_type
+        (type
+          (module_access
+            (identifier))))
+      (block
+        (expression
+          (module_access_expr
+            (module_access
+              (identifier))))))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier)
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier)))
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier))
+        (type_parameter
+          (identifier)))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier))))
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)))))
+      (ret_type
+        (type
+          (tuple_type
+            (type
+              (module_access
+                (identifier)))
+            (type
+              (module_access
+                (identifier))))))
+      (block
+        (expression
+          (tuple_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))))))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability))))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)))))
+      (block))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)))
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability))))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier))))
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)))))
+      (block))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)
+            (ability)
+            (ability))))
+      (function_parameters)
+      (block))))

@@ -1,0 +1,85 @@
+==================
+Attributes
+==================
+#[test_only]
+module 0x1::Attributes {
+    #[test]
+    #[expected_failure(abort_code = 1)]
+    fun t() { }
+
+    #[view]
+    public fun v() { }
+
+    #[test_only]
+    struct S { }
+
+    #[test_only]
+    const C: u64 = 1;
+
+    #[test_only]
+    use 0x1::M;
+
+    #[test_only]
+    friend 0x1::F;
+}
+
+---
+
+(source_file
+  (module_definition
+    (attributes
+      (attribute
+        (identifier)))
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (attributes
+        (attribute
+          (identifier))
+        (attribute
+          (identifier)
+          (attribute
+            (identifier)
+            (attribute_value
+              (num_literal)))))
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (attributes
+        (attribute
+          (identifier)))
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (struct_definition
+      (attributes
+        (attribute
+          (identifier)))
+      (identifier)
+      (struct_fields))
+    (constant_definition
+      (attributes
+        (attribute
+          (identifier)))
+      (identifier)
+      (type
+        (primitive_type))
+      (expression
+        (num_literal)))
+    (use_declaration
+      (attributes
+        (attribute
+          (identifier)))
+      (module_access
+        (address_literal)
+        (identifier)))
+    (friend_declaration
+      (attributes
+        (attribute
+          (identifier)))
+      (module_access
+        (address_literal)
+        (identifier)))))

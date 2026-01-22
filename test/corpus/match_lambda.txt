@@ -1,0 +1,139 @@
+================================================================================
+Match and Lambda
+================================================================================
+module 0x1::MatchLambda {
+    fun t() {
+        match (x) {
+            1 => 2,
+            y => y + 1,
+            Option::Some(z) => z,
+            Option::None => 0
+        };
+
+        match (x) {
+            1 => 2,
+            y if y > 10 => y,
+        };
+
+        let f = |x| x + 1;
+        let g = |x: u64, y| x + y;
+        let h = || 1;
+        let m = move |x| x;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (expression
+          (match_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (ERROR
+              (UNEXPECTED 'y')
+              (UNEXPECTED 'y')
+              (UNEXPECTED 'O')
+              (UNEXPECTED 'S'))
+            (match_arm
+              (bind_list
+                (bind_item
+                  (bind_var
+                    (identifier))))
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier)))))
+            (match_arm
+              (bind_list
+                (bind_var
+                  (identifier)))
+              (ERROR
+                (UNEXPECTED 'N'))
+              (expression
+                (num_literal)))))
+        (expression
+          (match_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (ERROR
+              (UNEXPECTED 'y')
+              (UNEXPECTED 'y')
+              (UNEXPECTED 'y'))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (lambda_expression
+              (lambda_bindings
+                (lambda_binding
+                  (bind_var
+                    (identifier))))
+              (expression
+                (binary_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (num_literal)))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (lambda_expression
+              (lambda_bindings
+                (lambda_binding
+                  (bind_var
+                    (identifier))
+                  (type
+                    (primitive_type)))
+                (lambda_binding
+                  (bind_var
+                    (identifier))))
+              (expression
+                (binary_expression
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier))))
+                  (expression
+                    (module_access_expr
+                      (module_access
+                        (identifier)))))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (lambda_expression
+              (lambda_bindings)
+              (expression
+                (num_literal)))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (lambda_expression
+              (lambda_bindings
+                (lambda_binding
+                  (bind_var
+                    (identifier))))
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier)))))))))))

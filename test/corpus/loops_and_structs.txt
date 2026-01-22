@@ -1,0 +1,376 @@
+==================
+Labeled Loops with Break and Continue
+==================
+module 0x1::Labels {
+    fun test() {
+        'outer: loop {
+            'inner: while (true) {
+                break 'inner;
+            };
+            continue 'outer;
+        }
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (expression
+          (loop_expression
+            (label
+              (identifier))
+            (expression
+              (block
+                (expression
+                  (while_expression
+                    (label
+                      (identifier))
+                    (expression
+                      (bool_literal))
+                    (expression
+                      (block
+                        (expression
+                          (break_expression
+                            (label
+                              (identifier))))))))
+                (expression
+                  (continue_expression
+                    (label
+                      (identifier))))))))))))
+
+==================
+For Loop with Range
+==================
+module 0x1::ForLoop {
+    fun sum_range(start: u64, end: u64): u64 {
+        let total = 0;
+        for (i in start..end) {
+            total = total + i;
+        };
+        total
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type)))
+        (function_parameter
+          (identifier)
+          (type
+            (primitive_type))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (num_literal)))
+        (expression
+          (for_expression
+            (identifier)
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (block
+                (expression
+                  (assignment_expression
+                    (expression
+                      (module_access_expr
+                        (module_access
+                          (identifier))))
+                    (expression
+                      (binary_expression
+                        (expression
+                          (module_access_expr
+                            (module_access
+                              (identifier))))
+                        (expression
+                          (module_access_expr
+                            (module_access
+                              (identifier))))))))))))
+        (expression
+          (module_access_expr
+            (module_access
+              (identifier))))))))
+
+==================
+Positional Struct Definition
+==================
+module 0x1::Positional {
+    struct Point(u64, u64);
+    struct Color(u8, u8, u8) has copy, drop;
+
+    fun create(): Point {
+        Point(10, 20)
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (positional_fields
+        (type
+          (primitive_type))
+        (type
+          (primitive_type))))
+    (struct_definition
+      (identifier)
+      (positional_fields
+        (type
+          (primitive_type))
+        (type
+          (primitive_type))
+        (type
+          (primitive_type)))
+      (abilities
+        (ability)
+        (ability)))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (ret_type
+        (type
+          (module_access
+            (identifier))))
+      (block
+        (expression
+          (call_expression
+            (module_access_expr
+              (module_access
+                (identifier)))
+            (arg_list
+              (expression
+                (num_literal))
+              (expression
+                (num_literal)))))))))
+
+==================
+Struct with Postfix Abilities
+==================
+module 0x1::PostfixAbilities {
+    struct Data {
+        value: u64
+    } has copy, drop, store;
+
+    public enum Result<T> {
+        Ok(T),
+        Err(u64)
+    } has drop;
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (primitive_type))))
+      (postfix_abilities
+        (abilities
+          (ability)
+          (ability)
+          (ability))))
+    (enum_definition
+      (visibility_modifier)
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (module_access
+              (identifier)))))
+      (enum_variant
+        (identifier)
+        (positional_fields
+          (type
+            (primitive_type))))
+      (postfix_abilities
+        (abilities
+          (ability))))))
+
+==================
+Empty Struct
+==================
+module 0x1::Empty {
+    struct Unit;
+    struct Marker has copy, drop;
+    native struct External;
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability)
+        (ability)))
+    (struct_definition
+      (native_modifier)
+      (identifier))))
+
+==================
+Reference Types
+==================
+module 0x1::References {
+    fun test() {
+        let x = 10;
+        let r: &u64 = &x;
+        let m: &mut u64 = &mut x;
+        let d = *r;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (num_literal)))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (ref_type
+              (type
+                (primitive_type))))
+          (expression
+            (borrow_expression
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier)))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (ref_type
+              (type
+                (primitive_type))))
+          (expression
+            (borrow_expression
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier)))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (dereference_expression
+              (expression
+                (module_access_expr
+                  (module_access
+                    (identifier)))))))))))
+
+==================
+Complex Visibility Modifiers
+==================
+module 0x1::Visibility {
+    public fun pub_fn() {}
+    public(friend) fun friend_fn() {}
+    public(package) fun package_fn() {}
+    fun private_fn() {}
+
+    public struct PublicStruct {}
+    public(package) struct PackageStruct {}
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (visibility_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block))
+    (struct_definition
+      (visibility_modifier)
+      (identifier)
+      (struct_fields))
+    (struct_definition
+      (visibility_modifier)
+      (identifier)
+      (struct_fields))))

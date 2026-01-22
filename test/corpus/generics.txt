@@ -1,0 +1,180 @@
+==================
+Complex Generics with Multiple Constraints
+==================
+module 0x1::Generics {
+    struct Container<T: copy + drop + store> {
+        value: T
+    }
+
+    fun swap<T1: copy, T2: drop>(x: T1, y: T2): (T1, T2) {
+        (x, y)
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)
+            (ability)
+            (ability))))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability)))
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability))))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier))))
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)))))
+      (ret_type
+        (type
+          (tuple_type
+            (type
+              (module_access
+                (identifier)))
+            (type
+              (module_access
+                (identifier))))))
+      (block
+        (expression
+          (tuple_expression
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))
+            (expression
+              (module_access_expr
+                (module_access
+                  (identifier))))))))))
+
+==================
+Phantom Type Parameters
+==================
+module 0x1::Phantom {
+    struct Wrapper<phantom T> {
+        id: u64
+    }
+
+    struct Element<phantom S, T: store> has store {
+        data: T
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (primitive_type)))))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier))
+        (type_parameter
+          (identifier)
+          (type_constraint
+            (ability))))
+      (abilities
+        (ability))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))))
+
+==================
+Nested Generic Types
+==================
+module 0x1::Nested {
+    struct Box<T> { value: T }
+
+    fun complex<T>(v: Box<Box<T>>): bool {
+        true
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (struct_fields
+        (struct_field
+          (identifier)
+          (type
+            (module_access
+              (identifier))))))
+    (function_definition
+      (identifier)
+      (type_parameters
+        (type_parameter
+          (identifier)))
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (module_access
+              (identifier)
+              (type_arguments
+                (type
+                  (module_access
+                    (identifier)
+                    (type_arguments
+                      (type
+                        (module_access
+                          (identifier)))))))))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (bool_literal))))))

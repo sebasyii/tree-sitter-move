@@ -1,0 +1,265 @@
+==================
+Signed Integer Literals
+==================
+module 0x1::Signed {
+    fun test() {
+        let a: i8 = -128i8;
+        let b: i16 = 32767i16;
+        let c: i32 = -2147483648i32;
+        let d: i64 = 9223372036854775807i64;
+        let e: i128 = -1i128;
+        let f: i256 = 0i256;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (unary_expression
+              (expression
+                (num_literal
+                  (num_suffix))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (num_literal
+              (num_suffix))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (unary_expression
+              (expression
+                (num_literal
+                  (num_suffix))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (num_literal
+              (num_suffix))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (unary_expression
+              (expression
+                (num_literal
+                  (num_suffix))))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (type
+            (primitive_type))
+          (expression
+            (num_literal
+              (num_suffix))))))))
+
+==================
+Numeric Literals with Underscores
+==================
+module 0x1::Underscores {
+    const BIG: u128 = 1_000_000_000u128;
+    const HEX: u64 = 0xFF_FF_FF_FFu64;
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (constant_definition
+      (identifier)
+      (type
+        (primitive_type))
+      (expression
+        (num_literal
+          (num_suffix))))
+    (constant_definition
+      (identifier)
+      (type
+        (primitive_type))
+      (expression
+        (num_literal
+          (num_suffix))))))
+
+==================
+Hex String Literals
+==================
+module 0x1::HexStrings {
+    fun test() {
+        let h1 = x"";
+        let h2 = x"48656C6C6F";
+        let h3 = x"DEADBEEF";
+        let b1 = b"Hello";
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (byte_string_literal)))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (byte_string_literal)))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (byte_string_literal)))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (byte_string_literal)))))))
+
+==================
+Address Expressions with At Sign
+==================
+module 0x1::AddressExpr {
+    fun test() {
+        let a1 = @0x1;
+        let a2 = @0xCAFE;
+        let a3 = @StdLib;
+        let a4 = @AptosFramework;
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (address_expression
+              (address_literal))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (address_expression
+              (address_literal))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (address_expression
+              (identifier))))
+        (let_statement
+          (bind_list
+            (bind_var
+              (identifier)))
+          (expression
+            (address_expression
+              (identifier))))))))
+
+==================
+Named Address in Module Identity
+==================
+module StdAddr::MyModule {
+    fun test() {}
+}
+
+address 0x1 {
+    module Nested {}
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (identifier)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (block)))
+  (address_block
+    (address_literal)
+    (module_definition
+      (module_identity
+        (identifier)))))
+
+==================
+Large Hex Addresses
+==================
+module 0xDEADBEEFCAFEBABE::LargeAddr {
+    const ADDR: address = @0x123456789ABCDEF0;
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (constant_definition
+      (identifier)
+      (type
+        (primitive_type))
+      (expression
+        (address_expression
+          (address_literal))))))

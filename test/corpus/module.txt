@@ -1,0 +1,13 @@
+==================
+Empty Module
+==================
+module 0x1::MyModule {
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))))

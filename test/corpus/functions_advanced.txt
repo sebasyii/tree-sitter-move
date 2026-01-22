@@ -1,0 +1,267 @@
+==================
+Function with Access Specifiers
+==================
+module 0x1::AccessSpec {
+    struct Resource has key {}
+
+    fun test() acquires Resource {
+        borrow_global<Resource>(@0x1);
+    }
+
+    fun pure_fn(): u64 pure { 42 }
+
+    fun reader(): bool reads Resource { true }
+
+    fun writer() writes Resource { }
+
+    fun negated() !acquires Resource { }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability))
+      (struct_fields))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block
+        (expression
+          (call_expression
+            (module_access_expr
+              (module_access
+                (identifier)
+                (type_arguments
+                  (type
+                    (module_access
+                      (identifier))))))
+            (arg_list
+              (expression
+                (address_expression
+                  (address_literal))))))))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (ret_type
+        (type
+          (primitive_type)))
+      (access_specifier)
+      (block
+        (expression
+          (num_literal))))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (ret_type
+        (type
+          (primitive_type)))
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block
+        (expression
+          (bool_literal))))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block))))
+
+==================
+Function Type with Abilities
+==================
+module 0x1::FunctionTypes {
+    fun takes_lambda(f: || has copy + store): u64 {
+        5
+    }
+
+    fun with_params(f: |u64, u64| has drop): bool {
+        true
+    }
+
+    fun returns_value(f: |u64| has copy u64): u64 {
+        10
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (fun_type
+              (ability)
+              (ability)))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (num_literal))))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (fun_type
+              (type
+                (primitive_type))
+              (type
+                (primitive_type))
+              (ability)))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (bool_literal))))
+    (function_definition
+      (identifier)
+      (function_parameters
+        (function_parameter
+          (identifier)
+          (type
+            (fun_type
+              (type
+                (primitive_type))
+              (ability)
+              (type
+                (primitive_type))))))
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (num_literal))))))
+
+==================
+Entry and Inline Functions
+==================
+module 0x1::Modifiers {
+    public entry fun init() {}
+
+    inline fun helper(): u64 { 42 }
+
+    native public fun native_fn();
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (function_definition
+      (visibility_modifier)
+      (entry_modifier)
+      (identifier)
+      (function_parameters)
+      (block))
+    (function_definition
+      (inline_modifier)
+      (identifier)
+      (function_parameters)
+      (ret_type
+        (type
+          (primitive_type)))
+      (block
+        (expression
+          (num_literal))))
+    (function_definition
+      (native_modifier)
+      (visibility_modifier)
+      (identifier)
+      (function_parameters))))
+
+==================
+Multiple Access Specifiers
+==================
+module 0x1::Multiple {
+    struct R1 has key {}
+    struct R2 has key {}
+    struct R3 has key {}
+
+    fun test()
+        acquires R1, R2
+        reads R3
+    {
+        borrow_global<R1>(@0x1);
+    }
+}
+
+---
+
+(source_file
+  (module_definition
+    (module_identity
+      (address_literal)
+      (identifier))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability))
+      (struct_fields))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability))
+      (struct_fields))
+    (struct_definition
+      (identifier)
+      (abilities
+        (ability))
+      (struct_fields))
+    (function_definition
+      (identifier)
+      (function_parameters)
+      (access_specifier
+        (module_access
+          (identifier))
+        (module_access
+          (identifier)))
+      (access_specifier
+        (module_access
+          (identifier)))
+      (block
+        (expression
+          (call_expression
+            (module_access_expr
+              (module_access
+                (identifier)
+                (type_arguments
+                  (type
+                    (module_access
+                      (identifier))))))
+            (arg_list
+              (expression
+                (address_expression
+                  (address_literal))))))))))
